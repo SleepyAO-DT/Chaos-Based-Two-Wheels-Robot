@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<robot name="mbot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:include filename="$(find lidar_robot)/urdf/two_wheel_base.xacro" />
+    <xacro:include filename="$(find lidar_robot)/urdf/sensors/lidar_gazebo.xacro" />
+    <xacro:include filename="$(find lidar_robot)/urdf/sensors/imu_gazebo.xacro" />
+
+    <xacro:property name="lidar_offset_x" value="0" />
+    <xacro:property name="lidar_offset_y" value="0" />
+    <xacro:property name="lidar_offset_z" value="0.24" />
+
+    <xacro:property name="imu_offset_x" value="-0.25" />
+    <xacro:property name="imu_offset_y" value="0" />
+    <xacro:property name="imu_offset_z" value="0.21" />
+
+    <!-- lidar -->
+    <joint name="lidar_joint" type="fixed">
+        <origin xyz="${lidar_offset_x} ${lidar_offset_y} ${lidar_offset_z}" rpy="0 0 0" />
+        <parent link="base_link"/>
+        <child link="lidar_link"/>
+    </joint>
+
+    <!-- imu -->
+    <joint name="imu_joint" type="fixed">
+        <origin xyz="${imu_offset_x} ${imu_offset_y} ${imu_offset_z}" rpy="0 0 0" />
+        <parent link="base_link"/>
+        <child link="imu_link"/>
+    </joint>
+
+    <xacro:mylidar/>
+
+    <xacro:myimu/>
+
+    <xacro:two_wheel_base/>
+
+</robot>
